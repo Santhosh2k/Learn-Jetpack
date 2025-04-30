@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LearnJetpack</string>
+    <string name="text_one">A new text from string resource</string>
 </resources>

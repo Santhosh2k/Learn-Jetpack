@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="MySplashscreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/green</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_animation</item>
+        <item name="postSplashScreenTheme">@style/Theme.LearnJetpack</item>
+    </style>
+
     <style name="Theme.LearnJetpack" parent="android:Theme.Material.Light.NoActionBar" />
 </resources>
