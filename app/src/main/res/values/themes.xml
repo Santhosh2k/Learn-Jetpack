@@ -3,7 +3,7 @@
 
     <style name="MySplashscreen" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/green</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_animation</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/whatsapp_icon_gif</item>
         <item name="postSplashScreenTheme">@style/Theme.LearnJetpack</item>
     </style>
 
