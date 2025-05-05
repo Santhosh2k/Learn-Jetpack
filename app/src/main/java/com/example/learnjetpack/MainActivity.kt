@@ -21,18 +21,21 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.rounded.Menu
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -78,7 +81,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             LearnJetpackTheme {
                 Surface(color = MaterialTheme.colorScheme.background)
-                    { LearnNavDrawer() }
+                    { MyBottomAppBar() }
                 }
             }
         }
@@ -98,7 +101,6 @@ fun DisplayText() {
             .background(Color.Red)
             .clickable(onClick = clickText))
 }
-
 
 @Composable
 fun LearnRowColBox(){
@@ -337,5 +339,95 @@ fun LearnNavDrawer(){
 fun LearnPreview(){
     LearnJetpackTheme {
         LearnNavDrawer()
+    }
+}
+
+@Composable
+fun MyBottomAppBar(){
+    val navigationController = rememberNavController()
+    val context = LocalContext.current.applicationContext
+    val selected = remember {
+        mutableStateOf(Icons.Filled.Home)
+    }
+
+    Scaffold(
+        bottomBar = {
+            BottomAppBar(containerColor = Green) {
+                IconButton(
+                    onClick = {
+                        selected.value = Icons.Filled.Home
+                        navigationController.navigate(Screens2.Home.screens){
+                            popUpTo(0)
+                        }
+                    },
+                    modifier = Modifier.weight(1f)) {
+                    Icon(Icons.Filled.Home, contentDescription = "Home", modifier = Modifier,
+                        tint = if (selected.value == Icons.Filled.Home ) Color.White else Color.Gray)
+                }
+
+                IconButton(
+                    onClick = {
+                        selected.value = Icons.Filled.Search
+                        navigationController.navigate(Screens2.Search.screens){
+                            popUpTo(0)
+                        }
+                    },
+                    modifier = Modifier.weight(1f)) {
+                    Icon(Icons.Filled.Search, contentDescription = "Home", modifier = Modifier,
+                        tint = if (selected.value == Icons.Filled.Search ) Color.White else Color.Gray)
+                }
+
+                Box(modifier = Modifier
+                    .weight(1f)
+                    .padding(16.dp),
+                    contentAlignment = Alignment.Center) {
+                    FloatingActionButton(onClick = {Toast.makeText(context,"Touch",Toast.LENGTH_SHORT).show()}) {
+                        Icon(Icons.Default.Add, contentDescription = null, tint = Green)
+                    }
+                }
+
+                IconButton(
+                    onClick = {
+                        selected.value = Icons.Filled.Notifications
+                        navigationController.navigate(Screens2.Notification.screens){
+                            popUpTo(0)
+                        }
+                    },
+                    modifier = Modifier.weight(1f)) {
+                    Icon(Icons.Filled.Notifications, contentDescription = "Notification", modifier = Modifier,
+                        tint = if (selected.value == Icons.Filled.Notifications ) Color.White else Color.Gray)
+                }
+
+                IconButton(
+                    onClick = {
+                        selected.value = Icons.Filled.Person
+                        navigationController.navigate(Screens2.Profile .screens){
+                            popUpTo(0)
+                        }
+                    },
+                    modifier = Modifier.weight(1f)) {
+                    Icon(Icons.Filled.Person, contentDescription = "profile", modifier = Modifier,
+                        tint = if (selected.value == Icons.Filled.Person ) Color.White else Color.Gray)
+                }
+            }
+        }
+    ) {paddingValues ->
+        NavHost(navController = navigationController,
+            startDestination = Screens2.Home.screens,
+            modifier = Modifier.padding(paddingValues)){
+            composable(Screens2.Home.screens) { Home2() }
+            composable(Screens2.Search.screens) { Search2() }
+            composable(Screens2.Notification.screens) { Notification2() }
+            composable(Screens2.Profile.screens) { Profile2() }
+
+        }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewBottomNav(){
+    LearnJetpackTheme {
+        MyBottomAppBar()
     }
 }
